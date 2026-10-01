@@ -253,6 +253,7 @@ REGLAS ESTRICTAS:
       ...conversationHistory.slice(-14)
     ];
 
+    // Call serverless /api/chat endpoint
     fetch(API_ENDPOINT, {
       method: 'POST',
       headers: {
@@ -264,24 +265,29 @@ REGLAS ESTRICTAS:
       })
     })
     .then(function (res) {
-      if (!res.ok) {
-        return res.text().then(function (t) { throw new Error(res.status + ': ' + t); });
-      }
+      if (!res.ok) throw new Error('API status: ' + res.status);
       return res.json();
     })
     .then(function (data) {
-      const reply = data.reply || fallbackText();
-      appendMsg(reply, 'assistant');
-      conversationHistory.push({ role: 'assistant', content: reply });
-      trySubmitLead();
+      if (data && data.reply) {
+        onSuccess(data.reply);
+      } else {
+        throw new Error('Empty reply');
+      }
     })
     .catch(function (err) {
-      console.warn('[LucySupport] API error:', err);
+      console.warn('[LucySupport] Connection error:', err);
       appendFallback();
     })
     .finally(function () {
       setLoading(false);
     });
+
+    function onSuccess(reply) {
+      appendMsg(reply, 'assistant');
+      conversationHistory.push({ role: 'assistant', content: reply });
+      trySubmitLead();
+    }
   }
 
   function appendMsg(text, role) {
