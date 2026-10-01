@@ -171,6 +171,10 @@
     }
     @media (min-width: 1024px) { .mobile-menu-btn { display: none; } }
 
+    /* Hide Free Estimate nav btn on mobile — it lives in the hamburger menu */
+    .header-right .btn-primary { display: none; }
+    @media (min-width: 1024px) { .header-right .btn-primary { display: inline-flex; } }
+
     /* Mobile Nav Dropdown */
     .mobile-dropdown {
       display: none; background-color: var(--charcoal-950);
@@ -181,6 +185,14 @@
       display: block; color: var(--white); padding: 0.875rem 0;
       font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem;
       border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    /* CTA button row inside mobile menu */
+    .mobile-dropdown .mobile-cta-btn {
+      display: block; margin-top: 1.25rem; text-align: center;
+      background-color: var(--brand-red); color: var(--white) !important;
+      border-radius: var(--radius); padding: 0.9rem 1.5rem;
+      border-bottom: none !important; font-size: 0.85rem;
+      letter-spacing: 0.15em; box-shadow: 0 4px 14px rgba(208,16,32,0.4);
     }
 
     /* Hero Section */
@@ -202,10 +214,17 @@
     .hero-content { position: relative; z-index: 10; text-align: center; color: var(--white); }
     
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      color: var(--brand-red-lt); font-family: var(--font-heading); font-weight: 700;
-      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.25em; margin-bottom: 1.5rem;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: rgba(208, 16, 32, 0.15);
+      border: 1px solid rgba(208, 16, 32, 0.5);
+      border-radius: 9999px;
+      padding: 0.45rem 1.1rem;
+      color: #ff8a95; font-family: var(--font-heading); font-weight: 700;
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em;
+      margin-bottom: 1.75rem;
+      backdrop-filter: blur(4px);
     }
+    .hero-badge i { color: var(--brand-red-lt); font-size: 0.85rem; }
     .hero-title {
       font-family: var(--font-heading); font-weight: 900;
       font-size: clamp(2.3rem, 5.5vw, 4.5rem); line-height: 1.05; margin-bottom: 1.5rem;
@@ -596,7 +615,7 @@
       <a href="#process" data-i18n="nav_process">Process</a>
       <a href="#reviews" data-i18n="nav_reviews">Reviews</a>
       <a href="#areas" data-i18n="nav_areas">Service Areas</a>
-      <a href="#contact" data-i18n="mob_get_estimate">Get Free Estimate</a>
+      <a href="#contact" class="mobile-cta-btn" data-i18n="mob_get_estimate">🔧 Get Free Estimate</a>
     </div>
   </header>
 
